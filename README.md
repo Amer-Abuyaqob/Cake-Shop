@@ -1,6 +1,30 @@
 # 🍰 Cake Shop Ordering System
 
+> 🚧 **Under Construction** – This project is actively being developed. Some features are complete, while others are still in progress. See the [Implementation Status](#-implementation-status) section for details.
+
 Java console application that walks through the entire cake-ordering journey—from order placement to pickup—while demonstrating four classic design patterns described in `project_description.pdf`.
+
+---
+
+## 📑 Table of Contents
+
+- [Implementation Status](#-implementation-status)
+- [1. Project Goals](#1--project-goals)
+- [2. Required Design Patterns](#2--required-design-patterns)
+- [3. Completed Modules](#3--completed-modules)
+  - [3.1 `cakes` Module](#31-cakes-module-)
+  - [3.2 `decorators` Module](#32-decorators-module-)
+- [4. Pending Modules](#4--pending-modules)
+- [5. Build & Run Instructions](#5--build--run-instructions)
+  - [5.1 Compile All Source Files](#51-compile-all-source-files)
+  - [5.2 Quick Manual Test](#52-quick-manual-test)
+- [6. JSON Storage Flow](#6--json-storage-flow-pending)
+- [7. Definition of Done for MVP](#7--definition-of-done-for-mvp)
+- [8. Next Steps](#8--next-steps)
+- [9. Code Quality Notes](#9--code-quality-notes)
+- [10. Authors](#10--authors)
+
+---
 
 ## 📊 Implementation Status
 
