@@ -31,36 +31,22 @@ public class ChocolateChipsDecorator extends CakeDecorator {
     /**
      * Constructs a new ChocolateChipsDecorator wrapping the given cake.
      * 
+     * <p>The current values of CHOCOLATE_CHIPS_COST and CHOCOLATE_CHIPS_NAME are
+     * captured as snapshots at construction time, so this object will maintain these
+     * values even if the static fields are changed later.
+     * 
      * @param decoratedCake The cake instance to be decorated with chocolate chips
      */
     public ChocolateChipsDecorator(Cake decoratedCake) {
-        super(decoratedCake);
-    }
-    
-    /**
-     * Gets the cost of adding chocolate chips to a cake.
-     * 
-     * @return The current cost of chocolate chips decoration
-     */
-    @Override
-    protected double getDecorationCost() {
-        return CHOCOLATE_CHIPS_COST;
-    }
-    
-    /**
-     * Gets the name of this decoration.
-     * 
-     * @return The current name of chocolate chips decoration
-     */
-    @Override
-    protected String getDecorationName() {
-        return CHOCOLATE_CHIPS_NAME;
+        super(decoratedCake, CHOCOLATE_CHIPS_COST, CHOCOLATE_CHIPS_NAME);
     }
     
     //TODO: needs some constraints
     /**
      * Sets the cost of adding chocolate chips to a cake.
-     * Changing this value affects all instances of ChocolateChipsDecorator.
+     * 
+     * <p>Changing this value only affects new ChocolateChipsDecorator instances created
+     * after this call. Existing instances maintain their original cost snapshot.
      * 
      * @param cost The new cost for chocolate chips decoration
      */
@@ -71,7 +57,9 @@ public class ChocolateChipsDecorator extends CakeDecorator {
     //TODO: needs some constraints
     /**
      * Sets the name of this decoration.
-     * Changing this value affects all instances of ChocolateChipsDecorator.
+     * 
+     * <p>Changing this value only affects new ChocolateChipsDecorator instances created
+     * after this call. Existing instances maintain their original name snapshot.
      * 
      * @param name The new name for chocolate chips decoration
      */

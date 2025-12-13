@@ -10,49 +10,39 @@ import cakes.Cake;
  * modifying the original cake object.
  * 
  * <p>Concrete decorators (e.g., ChocolateChips, Cream, Skittles) extend this
- * class and provide their decoration name and cost via abstract getter methods.
- * Both the description grammar logic and cost calculation are centralized here.
+ * class and pass their decoration name and cost via the constructor. Both the
+ * description grammar logic and cost calculation are centralized here.
  * 
- * <p>The decoration cost and name are read from static fields in each concrete
- * decorator class, allowing them to be changed and affecting all instances of
- * that decorator class.
+ * <p>The decoration cost and name are stored as snapshots at construction time,
+ * ensuring that each decorator object maintains the price at which it was created.
+ * Changes to static fields in concrete decorator classes only affect objects
+ * created after the change, preserving the original cost for previously created objects.
  * 
  * @author Amer Abuyaqob
  * @version 1.0
  */
 public abstract class CakeDecorator extends Cake {
     protected Cake decoratedCake;
+    protected double decorationCost;
+    protected String decorationName;
 
     /**
      * Constructs a new CakeDecorator wrapping the given cake.
      * 
+     * <p>The decoration cost and name are stored as snapshots at construction time,
+     * so each object maintains the values that were current when it was created.
+     * 
      * @param decoratedCake The cake instance to be decorated
+     * @param decorationCost The cost of this decoration (snapshot of static field value)
+     * @param decorationName The name of this decoration (snapshot of static field value)
      */
-    public CakeDecorator(Cake decoratedCake) {
+    public CakeDecorator(Cake decoratedCake, double decorationCost, String decorationName) {
         super(decoratedCake.getOrderID(), decoratedCake.getBaseName(), 
               decoratedCake.getSize(), decoratedCake.getBasePrice());
         this.decoratedCake = decoratedCake;
+        this.decorationCost = decorationCost;
+        this.decorationName = decorationName;
     }
-    
-    /**
-     * Gets the cost of this decoration.
-     * 
-     * <p>Concrete decorators must implement this to return their decoration cost
-     * from a static field, allowing the cost to be changed and affecting all instances.
-     * 
-     * @return The cost of this decoration
-     */
-    protected abstract double getDecorationCost();
-    
-    /**
-     * Gets the name of this decoration.
-     * 
-     * <p>Concrete decorators must implement this to return their decoration name
-     * from a static field, allowing the name to be changed and affecting all instances.
-     * 
-     * @return The name of this decoration
-     */
-    protected abstract String getDecorationName();
 
     /**
      * Returns the description of the decorated cake.
@@ -64,15 +54,15 @@ public abstract class CakeDecorator extends Cake {
      *   <li>3rd+ decorations: "Cake with X, Y, and [Decoration]" (Oxford comma style)</li>
      * </ul>
      * 
-     * <p>This method uses {@link #getDecorationName()} to get the decoration name,
-     * ensuring it always uses the current value from the concrete decorator's static field.
+     * <p>This method uses the decoration name stored at construction time, ensuring
+     * it always reflects the name that was current when this decorator was created.
      * 
      * @return A description of the cake with all decorations
      */
     @Override
     public String describe() {
         String baseDescription = this.decoratedCake.describe();
-        String decorationName = this.getDecorationName();  // Always read current value
+        String decorationName = this.decorationName;  // Use snapshot stored at construction
         
         // If no "with" exists, this is the first decoration
         if (!baseDescription.contains("with")) {
@@ -115,14 +105,15 @@ public abstract class CakeDecorator extends Cake {
      * Returns the total cost of the decorated cake.
      * 
      * <p>This method is centralized in the base class and adds the decoration cost
-     * to the wrapped cake's total cost. It uses {@link #getDecorationCost()} to get
-     * the decoration cost, ensuring it always uses the current value from the concrete
-     * decorator's static field.
+     * to the wrapped cake's total cost. It uses the decoration cost stored at construction
+     * time, ensuring it always reflects the price that was current when this decorator
+     * was created. This preserves the original purchase price even if static field values
+     * are changed later.
      * 
      * @return The total cost including all decorations
      */
     @Override
     public double getCost() {
-        return this.decoratedCake.getCost() + this.getDecorationCost();  // Always read current value
+        return this.decoratedCake.getCost() + this.decorationCost;  // Use snapshot stored at construction
     }
 }

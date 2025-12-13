@@ -30,36 +30,22 @@ public class CreamDecorator extends CakeDecorator {
     /**
      * Constructs a new CreamDecorator wrapping the given cake.
      * 
+     * <p>The current values of CREAM_COST and CREAM_NAME are captured as snapshots
+     * at construction time, so this object will maintain these values even if the
+     * static fields are changed later.
+     * 
      * @param decoratedCake The cake instance to be decorated with cream
      */
     public CreamDecorator(Cake decoratedCake) {
-        super(decoratedCake);
-    }
-    
-    /**
-     * Gets the cost of adding cream to a cake.
-     * 
-     * @return The current cost of cream decoration
-     */
-    @Override
-    protected double getDecorationCost() {
-        return CREAM_COST;
-    }
-    
-    /**
-     * Gets the name of this decoration.
-     * 
-     * @return The current name of cream decoration
-     */
-    @Override
-    protected String getDecorationName() {
-        return CREAM_NAME;
+        super(decoratedCake, CREAM_COST, CREAM_NAME);
     }
     
     //TODO: needs some constraints
     /**
      * Sets the cost of adding cream to a cake.
-     * Changing this value affects all instances of CreamDecorator.
+     * 
+     * <p>Changing this value only affects new CreamDecorator instances created after
+     * this call. Existing instances maintain their original cost snapshot.
      * 
      * @param cost The new cost for cream decoration
      */
@@ -70,7 +56,9 @@ public class CreamDecorator extends CakeDecorator {
     //TODO: needs some constraints
     /**
      * Sets the name of this decoration.
-     * Changing this value affects all instances of CreamDecorator.
+     * 
+     * <p>Changing this value only affects new CreamDecorator instances created after
+     * this call. Existing instances maintain their original name snapshot.
      * 
      * @param name The new name for cream decoration
      */

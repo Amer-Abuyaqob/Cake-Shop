@@ -30,36 +30,22 @@ public class SkittlesDecorator extends CakeDecorator {
     /**
      * Constructs a new SkittlesDecorator wrapping the given cake.
      * 
+     * <p>The current values of SKITTLES_COST and SKITTLES_NAME are captured as snapshots
+     * at construction time, so this object will maintain these values even if the static
+     * fields are changed later.
+     * 
      * @param decoratedCake The cake instance to be decorated with skittles
      */
     public SkittlesDecorator(Cake decoratedCake) {
-        super(decoratedCake);
-    }
-    
-    /**
-     * Gets the cost of adding skittles to a cake.
-     * 
-     * @return The current cost of skittles decoration
-     */
-    @Override
-    protected double getDecorationCost() {
-        return SKITTLES_COST;
-    }
-    
-    /**
-     * Gets the name of this decoration.
-     * 
-     * @return The current name of skittles decoration
-     */
-    @Override
-    protected String getDecorationName() {
-        return SKITTLES_NAME;
+        super(decoratedCake, SKITTLES_COST, SKITTLES_NAME);
     }
     
     //TODO: needs some constraints
     /**
      * Sets the cost of adding skittles to a cake.
-     * Changing this value affects all instances of SkittlesDecorator.
+     * 
+     * <p>Changing this value only affects new SkittlesDecorator instances created after
+     * this call. Existing instances maintain their original cost snapshot.
      * 
      * @param cost The new cost for skittles decoration
      */
@@ -70,7 +56,9 @@ public class SkittlesDecorator extends CakeDecorator {
     //TODO: needs some constraints
     /**
      * Sets the name of this decoration.
-     * Changing this value affects all instances of SkittlesDecorator.
+     * 
+     * <p>Changing this value only affects new SkittlesDecorator instances created after
+     * this call. Existing instances maintain their original name snapshot.
      * 
      * @param name The new name for skittles decoration
      */
