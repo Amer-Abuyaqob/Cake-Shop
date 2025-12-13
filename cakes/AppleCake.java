@@ -1,3 +1,5 @@
+package cakes;
+
 /**
  * Concrete implementation of {@link Cake} representing an apple cake.
  *

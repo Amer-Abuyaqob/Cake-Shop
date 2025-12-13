@@ -1,3 +1,5 @@
+package cakes;
+
 /**
  * Abstract base class representing a cake in the Cake Shop ordering system.
  * 
