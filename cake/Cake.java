@@ -1,8 +1,8 @@
 public abstract class Cake{
-    private int orderID;
-    private String baseName;
-    private String size;
-    private double basePrice;
+    protected int orderID;
+    protected String baseName;
+    protected String size;
+    protected double basePrice;
 
     public int getOrderID() {
         return orderID;
@@ -37,5 +37,6 @@ public abstract class Cake{
     }
 
     public abstract String describe();
+
     public abstract double getCost();
 }
