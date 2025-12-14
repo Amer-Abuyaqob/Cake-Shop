@@ -20,8 +20,8 @@ import java.util.HashMap;
  *   <li>Chocolate Cake: Small $10.50, Medium $12.50, Large $15.00</li>
  * </ul>
  * 
- * <p>Order IDs are automatically generated using a static counter that increments
- * with each cake creation, starting from 1.
+ * <p>Order IDs are automatically generated in the format: [3 letters for cake type]-[1 letter for size]-[sequential number].
+ * Examples: APP-L-001, CHE-M-002, CHO-S-003. The counter increments with each cake creation, starting from 1.
  * 
  * <p>Example usage:
  * <pre>
@@ -30,7 +30,7 @@ import java.util.HashMap;
  * </pre>
  * 
  * @author Amer Abuyaqob
- * @version 1.0
+ * @version 1.1
  */
 public class CakeFactory {
     
@@ -39,6 +39,72 @@ public class CakeFactory {
      * Starts at 1 and increments with each cake creation.
      */
     public static int orderIDCounter = 1;
+
+    /**
+     * Generates a formatted order ID in the format: [3 letters for cake type]-[1 letter for size]-[sequential number]
+     * 
+     * <p>Format examples:
+     * <ul>
+     *   <li>APP-L-001 (Apple Cake, Large, order 1)</li>
+     *   <li>CHE-M-002 (Cheese Cake, Medium, order 2)</li>
+     *   <li>CHO-S-003 (Chocolate Cake, Small, order 3)</li>
+     * </ul>
+     * 
+     * @param type The cake type
+     * @param size The cake size
+     * @param orderNumber The sequential order number
+     * @return A formatted order ID string
+     */
+    private static String generateOrderID(CakeType type, CakeSize size, int orderNumber) {
+        // Get 3-letter code for cake type (first 3 letters, uppercase)
+        String typeCode = getTypeCode(type);
+        
+        // Get 1-letter code for size (L, M, S)
+        String sizeCode = getSizeCode(size);
+        
+        // Format order number with leading zeros (001, 002, etc.)
+        String orderNum = String.format("%03d", orderNumber);
+        
+        return typeCode + "-" + sizeCode + "-" + orderNum;
+    }
+
+    /**
+     * Gets the 3-letter code for a cake type.
+     * 
+     * @param type The cake type
+     * @return 3-letter uppercase code (APP, CHE, CHO)
+     */
+    private static String getTypeCode(CakeType type) {
+        switch (type) {
+            case APPLE:
+                return "APP";
+            case CHEESE:
+                return "CHE";
+            case CHOCOLATE:
+                return "CHO";
+            default:
+                throw new IllegalArgumentException("Unknown cake type: " + type);
+        }
+    }
+
+    /**
+     * Gets the 1-letter code for a cake size.
+     * 
+     * @param size The cake size
+     * @return 1-letter code (L for Large, M for Medium, S for Small)
+     */
+    private static String getSizeCode(CakeSize size) {
+        switch (size) {
+            case SMALL:
+                return "S";
+            case MEDIUM:
+                return "M";
+            case LARGE:
+                return "L";
+            default:
+                throw new IllegalArgumentException("Unknown cake size: " + size);
+        }
+    }
 
     /**
      * Pricing table that maps cake types to their size-based prices.
@@ -116,7 +182,7 @@ public class CakeFactory {
         }
 
         // Generate order ID and increment counter
-        int orderID = orderIDCounter++;
+        String orderID = generateOrderID(type, size, orderIDCounter++);
         
         // Calculate base price from pricing table
         double basePrice = getBasePrice(type, size);
