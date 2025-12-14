@@ -13,25 +13,24 @@ package cakes;
  * 
  * @see decorators.CakeDecorator
  * @author Amer Abuyaqob
- * @version 1.0
+ * @version 1.2
  */
 public abstract class Cake{
-    //TODO: make orderID auto generated
-    protected int orderID;
+    protected String orderID;
     protected String baseName;
-    protected String size;
+    protected CakeSize size;
     protected double basePrice;
 
     /**
      * Constructor for Cake class.
      * Initializes all fields for a cake order.
      * 
-     * @param orderID The unique identifier for this order
+     * @param orderID The unique identifier for this order (format: XXX-S-###)
      * @param baseName The name of the base cake type (e.g., "Apple Cake", "Cheese Cake")
-     * @param size The size of the cake
+     * @param size The size of the cake (enum value: SMALL, MEDIUM, or LARGE)
      * @param basePrice The base price of the cake before decorations
      */
-    public Cake(int orderID, String baseName, String size, double basePrice) {
+    public Cake(String orderID, String baseName, CakeSize size, double basePrice) {
         this.orderID = orderID;
         this.baseName = baseName;
         this.size = size;
@@ -41,18 +40,18 @@ public abstract class Cake{
     /**
      * Retrieves the unique order identifier for this cake.
      * 
-     * @return The order ID associated with this cake
+     * @return The order ID associated with this cake (format: XXX-S-###)
      */
-    public int getOrderID() {
+    public String getOrderID() {
         return orderID;
     }
-    //TODO: needs to be removed when auto generated orderId's are implemented
+
     /**
      * Sets the unique order identifier for this cake.
      * 
-     * @param orderID The order ID to assign to this cake
+     * @param orderID The order ID to assign to this cake (format: XXX-S-###)
      */
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
@@ -78,20 +77,18 @@ public abstract class Cake{
     /**
      * Retrieves the size of the cake.
      * 
-     * @return The size of the cake
+     * @return The size of the cake as a CakeSize enum value
      */
-    public String getSize() {
+    public CakeSize getSize() {
         return size;
     }
 
-
-    //TODO: needs some constraints
     /**
      * Sets the size of the cake.
      * 
-     * @param size The size to assign to the cake
+     * @param size The size to assign to the cake (must be a valid CakeSize enum value)
      */
-    public void setSize(String size) {
+    public void setSize(CakeSize size) {
         this.size = size;
     }
 
@@ -126,7 +123,7 @@ public abstract class Cake{
      * <p>Concrete cake classes must implement this to describe the base cake.
      * Decorators will enhance this description to include their added features.
      * 
-     * <p>Example output: "Order #7: Chocolate Cake (Large) with Chocolate Chips and Cream"
+     * <p>Example output: "Order #CHO-L-001: Chocolate Cake (Large) with Chocolate Chips and Cream"
      * 
      * @return A string description of the cake with all its features
      */

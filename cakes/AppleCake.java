@@ -1,31 +1,31 @@
 package cakes;
 
-/**
- * Concrete implementation of {@link Cake} representing an apple cake.
- *
- * <p>This class provides a simple base cake with a name of "Apple Cake",
- * a size, and a base price. It is intended to be used with the Decorator
- * pattern where decorators wrap a `Cake` instance to add additional features
- * and costs (for example, fruit toppings or cream).
- *
- * <p>Example usage:
- * <pre>
- * AppleCake base = new AppleCake(2, "Medium", 10.00);
- * </pre>
- *
- * @author Mustafa Abu Saffaqa
- * @version 1.0
- */
+    /**
+     * Concrete implementation of {@link Cake} representing an apple cake.
+     *
+     * <p>This class provides a simple base cake with a name of "Apple Cake",
+     * a size, and a base price. It is intended to be used with the Decorator
+     * pattern where decorators wrap a `Cake` instance to add additional features
+     * and costs (for example, fruit toppings or cream).
+     *
+     * <p>Example usage:
+     * <pre>
+     * AppleCake base = new AppleCake(2, CakeSize.MEDIUM, 10.00);
+     * </pre>
+     *
+     * @author Mustafa Abu Saffaqa
+     * @version 1.1
+     */
 public class AppleCake extends Cake {
 
     /**
      * Constructs a new AppleCake with the given order id, size and base price.
      *
-     * @param orderID   the unique order identifier for this cake
-     * @param size      the size of the cake (e.g. "Small", "Medium", "Large")
+     * @param orderID   the unique order identifier for this cake (format: XXX-S-###)
+     * @param size      the size of the cake (CakeSize enum: SMALL, MEDIUM, or LARGE)
      * @param basePrice the base price of the cake before decorations
      */
-    public AppleCake(int orderID, String size, double basePrice) {
+    public AppleCake(String orderID, CakeSize size, double basePrice) {
         super(orderID, "Apple Cake", size, basePrice);
     }
 
@@ -38,7 +38,7 @@ public class AppleCake extends Cake {
      */
     @Override
     public String describe() {
-        return "Order #" + getOrderID() + ": " + getBaseName() + " (" + getSize() + ")";
+        return "Order #" + getOrderID() + ": " + getBaseName() + " (" + getSize().getDisplayName() + ")";
     }
 
     /**
