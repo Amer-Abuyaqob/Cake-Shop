@@ -21,11 +21,11 @@ public class AppleCake extends Cake {
     /**
      * Constructs a new AppleCake with the given order id, size and base price.
      *
-     * @param orderID   the unique order identifier for this cake
+     * @param orderID   the unique order identifier for this cake (format: XXX-S-###)
      * @param size      the size of the cake (CakeSize enum: SMALL, MEDIUM, or LARGE)
      * @param basePrice the base price of the cake before decorations
      */
-    public AppleCake(int orderID, CakeSize size, double basePrice) {
+    public AppleCake(String orderID, CakeSize size, double basePrice) {
         super(orderID, "Apple Cake", size, basePrice);
     }
 
